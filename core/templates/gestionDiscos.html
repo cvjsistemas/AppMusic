@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div  class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Gestion de Discos</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/registroDisco/" method="POST">{% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" name="txtNombre" class="form-control" placeholder="Nombre">
+                                </div>
+                                <p></p>
+                                <div class="form-group">
+                                    <input type="text" name="txtDesc" class="form-control" placeholder="Descripcion">
+                                </div>
+                                <p></p>
+                                <div class="form-group">
+                                    <input type="number" name="txtPrecio" class="form-control" min="1" max="100" placeholder='Precio'>
+                                </div>
+                                <p></p>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success btn-block text-white" value="Guardar">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-8">
+                <h2>Listado de Discos</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>NOMBRE</td>
+                                <td>DESC.</td>
+                                <td>PRECIO</td>
+                                <td>OPCIONES</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in discos %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{c.product_nombre}}</td>
+                                    <td>{{c.product_description}}</td>
+                                    <td>{{c.product_price}}</td>
+                                    <td> <a href="edicionDisco/{{c.product_id}}" class="btn btn-block btn-info">Editar</a></td>
+                                    <td> <a href="eliminarDisco/{{c.product_id}}" class="btn btn-block btn-danger">Eliminar</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
